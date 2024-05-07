@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Expense Tracker</title>
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:separate;border-spacing:0">
+    <tbody>
+    <tr>
+        <td>
+            <div style="color:#1f1f1f;line-height:1.25em;max-width:400px;margin:0 auto" align="center">
+                <img width="55" height="55" data-bit="iit" src="cid:logo">
+                <h3>
+                    Expense Tracking Application
+                </h3>
+                <p style="font-size:0.9em">
+                    Before you sign in, we need to verify your identity. Enter the following code on the sign-in
+                    page.
+                </p>
+                <div th:text="${optCode}"
+                     style="width:207px;height:53px;background-color:#f0f0f0;line-height:53px;font-weight:700;font-size:1.5em;color:#303030;margin:26px 0">
+
+                </div>
+                <p style="font-size:0.75em">
+                    Welcome to the Expense Tracking Application. Here, you can monitor your expenses and manage your
+                    budget effectively.
+                </p>
+            </div>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
