@@ -18,4 +18,7 @@ public interface AppUserRepository {
     @ResultMap("appUserMapper")
     @Select("INSERT INTO users (email, password) VALUES (#{appUser.email}, #{appUser.password}) RETURNING *")
     AppUser register(@Param("appUser") AppUserRequest appUserRequest);
+
+    @Update("UPDATE users SET password = #{password} WHERE email = #{email}")
+    void forget(String email, String password);
 }

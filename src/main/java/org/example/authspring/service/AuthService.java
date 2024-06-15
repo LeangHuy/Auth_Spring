@@ -2,6 +2,7 @@ package org.example.authspring.service;
 
 
 
+import jakarta.mail.MessagingException;
 import org.example.authspring.model.dto.request.AppUserRequest;
 import org.example.authspring.model.dto.request.AuthRequest;
 import org.example.authspring.model.dto.request.PasswordRequest;
@@ -16,9 +17,9 @@ public interface AuthService {
 
     AppUserResponse register(AppUserRequest appUserRequest) throws Exception;
 
-    void verify(String optCode);
+    void verify(String otpCode);
 
-    void resend(String email) throws Exception;
+    void resend(String email) throws MessagingException;
 
     void forget(String email, PasswordRequest passwordRequest);
 
