@@ -134,6 +134,7 @@ public class AuthServiceImpl implements AuthService {
         if (!passwordRequest.getConfirmPassword().equals(passwordRequest.getPassword())){
             throw new BadRequestException("Your confirm password does not match with your password");
         }
+        passwordRequest.setPassword(passwordEncoder.encode(passwordRequest.getPassword()));
         appUserRepository.forget(email, passwordRequest.getPassword());
     }
 

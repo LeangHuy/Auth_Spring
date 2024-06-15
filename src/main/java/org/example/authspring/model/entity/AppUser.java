@@ -22,7 +22,7 @@ public class AppUser implements UserDetails {
     private String password;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        return Collections.singleton(new SimpleGrantedAuthority("user"));
     }
 
     @Override

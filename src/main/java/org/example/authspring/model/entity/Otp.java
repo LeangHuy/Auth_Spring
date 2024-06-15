@@ -13,7 +13,6 @@ import java.util.UUID;
 @Builder
 @Data
 public class Otp {
-
     private UUID otpId;
     private String otpCode;
     private LocalDateTime issuedAt;
