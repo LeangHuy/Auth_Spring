@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/auths")
 @AllArgsConstructor
+@CrossOrigin
 public class AuthController {
 
     private final AuthService authService;
@@ -47,7 +48,7 @@ public class AuthController {
     }
 
     @PutMapping("/forget")
-    public ResponseEntity<?> forget(@RequestParam String email, @Valid @RequestBody PasswordRequest passwordRequest) {
+    public ResponseEntity<?> forget(@RequestParam String email, @Valid @RequestBody PasswordRequest passwordRequest) throws MessagingException {
         authService.forget(email, passwordRequest);
         return ResponseEntity.status(HttpStatus.OK).body("Your password is reset successful");
     }

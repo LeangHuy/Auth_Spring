@@ -122,31 +122,40 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void forget(String email, PasswordRequest passwordRequest) {
+    public void forget(String email, PasswordRequest passwordRequest) throws MessagingException {
         AppUser appUser = appUserRepository.findByEmail(email);
         if (appUser == null) {
             throw new NotFoundException("Invalid email");
         }
         Otp otp = otpRepository.findOtpByUserId(appUser.getUserId());
+        if(otp==null){
+            throw new NotFoundException("Invalid user credential");
+        }
+        String newOtp = generateOTP();
+        emailService.sendMail(newOtp,email);
+        if(!otp.getOtpCode().equalsIgnoreCase(newOtp)) {
+            otpRepository.updateResendOtpForUser(
+                    new OtpRequest(
+                            newOtp,
+                            LocalDateTime.now(),
+                            LocalDateTime.now().plusMinutes(1L),
+                            false,
+                            appUser.getUserId()
+                    ));
+        }
         if (!otp.getVerify()){
+
             throw new BadRequestException("Your account is not verify yet");
+
         }
         if (!passwordRequest.getConfirmPassword().equals(passwordRequest.getPassword())){
             throw new BadRequestException("Your confirm password does not match with your password");
         }
-        passwordRequest.setPassword(passwordEncoder.encode(passwordRequest.getPassword()));
-        appUserRepository.forget(email, passwordRequest.getPassword());
+        appUserRepository.forget(email, passwordEncoder.encode(passwordRequest.getPassword()));
     }
-
-    @Override
-    public UUID findCurrentUser() {
-        AppUser appUser = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return appUser.getUserId();
-    }
-
     public static String generateOTP() {
         // declare randomNo to store the otp
-        // generate 4 digits otp
+        // generate 6 digits otp
         int randomNo = (int) (Math.random() * 900000) + 100000;
         // return otp
         return String.valueOf(randomNo);

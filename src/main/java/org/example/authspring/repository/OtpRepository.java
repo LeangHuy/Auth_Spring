@@ -5,6 +5,7 @@ import org.example.authspring.model.dto.request.OtpRequest;
 import org.example.authspring.model.entity.Otp;
 
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Mapper
@@ -27,4 +28,9 @@ public interface OtpRepository {
 
     @Update("UPDATE otps SET verify = true WHERE otp_code = #{otpCode}")
     void verify(String otpCode);
+    @Update("""
+    UPDATE otps SET otp_code = #{otp.otpCode},issued_at= #{otp.issuedAt},expiration = #{otp.expiration},verify = #{otp.verify}
+    WHERE user_id = #{otp.userId}
+""")
+    void updateResendOtpForUser(@Param("otp") OtpRequest otpRequest);
 }

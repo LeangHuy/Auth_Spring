@@ -13,7 +13,6 @@ import java.util.UUID;
 @Builder
 @Data
 public class OtpRequest {
-
     private String otpCode;
     private LocalDateTime issuedAt;
     private LocalDateTime expiration;

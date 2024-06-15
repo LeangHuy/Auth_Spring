@@ -21,7 +21,6 @@ public interface AuthService {
 
     void resend(String email) throws MessagingException;
 
-    void forget(String email, PasswordRequest passwordRequest);
+    void forget(String email, PasswordRequest passwordRequest) throws MessagingException;
 
-    UUID findCurrentUser();
 }
